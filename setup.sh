@@ -26,23 +26,24 @@ function backup_files() {
     mkdir $OLD_DOTFILES
 
     # Clean common conflicts
-    backup_if_exists ~/.bash_profile
+    # backup_if_exists ~/.bash_profile
+    backup_if_exists ~/.bash_logout
     backup_if_exists ~/.bashrc
-    backup_if_exists ~/.zshrc
+    # backup_if_exists ~/.zshrc
     backup_if_exists ~/.gitconfig
     backup_if_exists ~/.tmux.conf
-    backup_if_exists ~/.profile
+    # backup_if_exists ~/.profile
 
 
+    # mkdir -p ~/.vim/undodir
 
-    mkdir -p ~/.vim/undodir
-
-    for f in ~/.zprezto/runcoms/z*
-    do
-        mv "$f" $OLD_DOTFILES
-    done
+    # for f in ~/.zprezto/runcoms/z*
+    # do
+    #     mv "$f" $OLD_DOTFILES
+    # done
 }
 
+backup_files
 
 for program in ${PROGRAMS[@]}; do
   stow -v --target=$HOME $program
