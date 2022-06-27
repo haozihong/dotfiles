@@ -116,7 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# enable fzf keybindings for Bash
-source /usr/share/doc/fzf/examples/key-bindings.bash
-# enable fuzzy auto-completion for Bash
-source /usr/share/doc/fzf/examples/completion.bash
+if [ "$(command -v fzf)" ]; then
+  # enable fzf keybindings for Bash
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+  # enable fuzzy auto-completion for Bash
+  source /usr/share/doc/fzf/examples/completion.bash
+fi
