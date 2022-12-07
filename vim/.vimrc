@@ -14,6 +14,8 @@ set nocompatible
 " Turn on syntax highlighting.
 syntax on
 
+colo desert
+
 " Disable the default Vim startup message.
 set shortmess+=I
 
