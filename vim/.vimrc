@@ -109,6 +109,52 @@ syntax on
 " }}}
 
 " Keymap {{{
+" Fix ALT Key (not used) {{{
+" http://www.skywind.me/blog/archives/2021
+function! Terminal_MetaMode(mode)
+    set ttimeout
+    if $TMUX != ''
+        set ttimeoutlen=30
+    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        set ttimeoutlen=80
+    endif
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    function! s:metacode(mode, key)
+        if a:mode == 0
+            exec "set <M-".a:key.">=\e".a:key
+        else
+            exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        endif
+    endfunc
+    for i in range(10)
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    endfor
+    for i in range(26)
+        call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    endfor
+    if a:mode != 0
+        for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    else
+        for c in [',', '.', '/', ';', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    endif
+endfunc
+
+"call Terminal_MetaMode(0)
+" }}}
+
 let mapleader=","
 
 nmap <leader>s :source ~/.vimrc<cr>
@@ -123,20 +169,27 @@ map <leader>th :tabp<cr>
 map <leader>tl :tabn<cr>
 
 " 移动分割窗口
-nmap <C-j> <C-W>j
-nmap <C-k> <C-W>k
-nmap <C-h> <C-W>h
-nmap <C-l> <C-W>l
+"nmap <tab>j <C-W>j
+"nmap <m-K> <C-W>k
+"nmap <m-H> <C-W>h
+"nmap <m-L> <C-W>l
 
 " 正常模式下 alt+j,k,h,l 调整分割窗口大小
-"nnoremap <M-j> :resize +5<cr>
-"nnoremap <M-k> :resize -5<cr>
-"nnoremap <M-h> :vertical resize -5<cr>
-"nnoremap <M-l> :vertical resize +5<cr>
+"nnoremap <silent><space>= :resize +3<cr>
+"nnoremap <M-k> :resize -3<cr>
+"nnoremap <M-h> :vertical resize -3<cr>
+"nnoremap <M-l> :vertical resize +3<cr>
+
+" 插入模式移动光标 alt + 方向键
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <left>
+inoremap <C-l> <Right>
 
 " toggle searching highlighting
 nnoremap <F4> :set invhlsearch<cr>
 
+" autocomplete parenthesis
 "inoremap ' ''<ESC>i
 "inoremap " ""<ESC>i
 "inoremap ( ()<ESC>i
