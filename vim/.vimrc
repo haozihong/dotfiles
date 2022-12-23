@@ -48,9 +48,6 @@ let $LANG = 'en_US.UTF-8'
 " GUI {{{
 colo desert
 
-" Disable the default Vim startup message.
-set shortmess+=I
-
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 set cursorline
@@ -257,14 +254,14 @@ call plug#begin()
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTree'] }
 " 打开vim时如果没有文件自动打开NERDTree
-autocmd vimenter * if !argc() | NERDTree 
+"autocmd vimenter * if !argc() | NERDTree 
 " 当NERDTree为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-nnoremap <leader>n :NERDTreeFocus<CR>
+"nnoremap <leader>n :NERDTreeFocus<CR>
 " nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+"nnoremap <C-f> :NERDTreeFind<CR>
 " }}}
 
 " vim-sleuth (detect indent) {{{
@@ -284,12 +281,12 @@ Plug 'sheerun/vim-polyglot'
 
 " YouCompleteMe (autocomplete) {{{
 Plug 'ycm-core/YouCompleteMe'
-"let g:ycm_add_preview_to_completeopt = 0
-"let g:ycm_show_diagnostics_ui = 0
-"let g:ycm_server_log_level = 'info'
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
 let g:ycm_min_num_identifier_candidate_chars = 2
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_complete_in_strings=1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone
 
@@ -299,6 +296,63 @@ let g:ycm_semantic_triggers =  {
              \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
              \ 'cs,lua,javascript': ['re!\w{2}'],
              \ }
+" }}}
+
+" LeaderF {{{
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
+" don't show the help in normal mode
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+" popup mode
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+let g:Lf_ShortcutF = "<leader>ff"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <leader>fn :LeaderfFunction!<cr>
+
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+
+" should use `Leaderf gtags --update` first
+"let g:Lf_GtagsAutoGenerate = 0
+"let g:Lf_Gtagslabel = 'native-pygments'
+"noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+"noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+"noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+" }}}
+
+" vim-mark {{{
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-mark'
+let g:mwDefaultHighlightingPalette = 'extended'
+" }}}
+
+" Airline {{{
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+" }}}
+
+" a.vim (switch between .h and .c/cpp) {{{
+Plug 'vim-scripts/a.vim'
+" }}}
+
+" Dirvish (directory navigator, replacing netrw) {{{
+Plug 'justinmk/vim-dirvish'
 " }}}
 
 " Initialize plugin system
