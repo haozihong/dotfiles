@@ -105,3 +105,10 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+if [ "$(command -v fzf)" ]; then
+  # enable fzf keybindings for Bash
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  # enable fuzzy auto-completion for Bash
+  source /usr/share/doc/fzf/examples/completion.zsh
+fi
