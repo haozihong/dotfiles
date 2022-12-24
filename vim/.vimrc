@@ -99,7 +99,7 @@ set ttymouse=sgr
 
 set foldmethod=indent
 " Open all folding when files opened
-" autocmd BufWinEnter * normal zR
+autocmd BufWinEnter * normal zR
 
 " Turn on syntax highlighting.
 syntax on
@@ -252,15 +252,15 @@ call plug#begin()
 
 " NERDTree {{{
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTree'] }
+"Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTree'] }
 " 打开vim时如果没有文件自动打开NERDTree
 "autocmd vimenter * if !argc() | NERDTree 
 " 当NERDTree为剩下的唯一窗口时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "nnoremap <leader>n :NERDTreeFocus<CR>
 " nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+"nnoremap <C-t> :NERDTreeToggle<CR>
 "nnoremap <C-f> :NERDTreeFind<CR>
 " }}}
 
@@ -316,8 +316,9 @@ let g:Lf_ShortcutF = "<leader>ff"
 noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fT :LeaderfTag<cr>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <leader>fn :LeaderfFunction!<cr>
+noremap <leader>fn :LeaderfFunction<cr>
 
 noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
 noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
