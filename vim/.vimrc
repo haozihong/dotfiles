@@ -250,7 +250,7 @@ call plug#begin()
 "   syntax off            " Disable syntax highlighting
 " }}}
 
-" NERDTree {{{
+" (turned off) NERDTree {{{
 " On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTree'] }
 " 打开vim时如果没有文件自动打开NERDTree
@@ -273,6 +273,10 @@ Plug 'tpope/vim-sleuth'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 "Plug 'altercation/vim-colors-solarized'
+" }}}
+
+" vim-smoothie: Smooth scrolling for Vim {{{
+Plug 'psliwka/vim-smoothie'
 " }}}
 
 " vim-polyglot (syntax highlighting) {{{
