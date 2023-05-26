@@ -449,6 +449,9 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " }}}
 
+" suda.vim (read or write file with sudo) {{{
+Plug 'lambdalisue/suda.vim'
+" }}}
 
 " LeaderF {{{
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
