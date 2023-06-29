@@ -62,6 +62,9 @@ set number
 " down.
 set relativenumber
 
+" Show a few lines of context around the cursor.
+set scrolloff=3
+
 " 分割出来的窗口位于当前窗口下边/右边
 set splitbelow
 set splitright
@@ -267,6 +270,33 @@ call plug#begin()
 Plug 'tpope/vim-sleuth'
 " }}}
 
+" vim-commentary {{{
+" Use gcc to comment out a line (takes a count), gc to comment out the target
+" of a motion (for example, gcap to comment out a paragraph), gc in visual
+" mode to comment out the selection, and gc in operator pending mode to target
+" a comment. You can also use it as a command, either with a range like
+" :7,17Commentary, or as part of a :global invocation like with
+" :g/TODO/Commentary.
+Plug 'tpope/vim-commentary'
+" }}}
+
+" vim-surround {{{
+Plug 'tpope/vim-surround'
+" }}}
+
+" argtextobj.vim (provides a text-object 'a' (argument)) {{{
+Plug 'vim-scripts/argtextobj.vim'
+" }}}
+
+" vim-highlightedyank {{{
+Plug 'machakann/vim-highlightedyank'
+let g:highlightedyank_highlight_duration = 200
+" }}}
+
+" quick-scope (highlights helping using f, F, etc.) {{{
+Plug 'unblevable/quick-scope'
+" }}}
+
 " themes {{{
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
@@ -281,8 +311,7 @@ Plug 'psliwka/vim-smoothie'
 Plug 'sheerun/vim-polyglot'
 " }}}
 
-" Auto completion
-" coc.nvim {{{
+" coc.nvim (Auto completion) {{{
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 let g:coc_global_extensions = ['coc-marketplace']
