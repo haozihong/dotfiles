@@ -86,17 +86,19 @@ set noerrorbells visualbell t_vb=
 " sometimes be convenient.
 set mouse+=a
 " Enabel mouse resizing windows
-set ttymouse=sgr
+if !has('nvim')
+    set ttymouse=sgr
+endif
 " }}}
 
 " Format {{{
 " No need to set tab size now. Using plugin sleuth
-"set smarttab
+set smarttab
 "set tabstop=4
 "set softtabstop=4
 "set shiftwidth=4
-"set expandtab
-"set autoindent
+set expandtab
+set autoindent
 
 set foldmethod=indent
 " Open all folding when files opened
@@ -161,6 +163,13 @@ nmap <leader>e :e ~/.vimrc<cr>
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 
+" Have j and k navigate visual lines rather than logical ones
+nmap j gj
+nmap k gk
+"  use H and L for beginning/end of line
+nmap <C-h> ^
+nmap <C-l> $
+
 map <leader>tn :tabnew<cr>
 map <leader>tc :tabclose<cr>
 map <leader>th :tabp<cr>
@@ -178,7 +187,7 @@ map <leader>tl :tabn<cr>
 "nnoremap <M-h> :vertical resize -3<cr>
 "nnoremap <M-l> :vertical resize +3<cr>
 
-" 插入模式移动光标 alt + 方向键
+" 插入模式移动光标 Ctrl + 方向键
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <left>
@@ -193,6 +202,9 @@ nnoremap <F4> :set invhlsearch<cr>
 "inoremap ( ()<ESC>i
 "inoremap [ []<ESC>i
 "inoremap { {}<ESC>i
+
+" use Esc to exit terminal mode
+:tnoremap <Esc> <C-\><C-n>
 " }}}
 
 " Plugin {{{
@@ -533,6 +545,19 @@ let g:airline_powerline_fonts = 1
 " }}}
 
 " a.vim (switch between .h and .c/cpp) {{{
+" :A switches to the header file corresponding to the current file being edited (or vise versa)
+" :AS splits and switches
+" :AV vertical splits and switches
+" :AT new tab and switches
+" :AN cycles through matches
+" :IH switches to file under cursor
+" :IHS splits and switches
+" :IHV vertical splits and switches
+" :IHT new tab and switches
+" :IHN cycles through matches
+" <Leader>ih switches to file under cursor
+" <Leader>is switches to the alternate file of file under cursor (e.g. on  <foo.h> switches to foo.cpp)
+" <Leader>ihn cycles through matches
 Plug 'vim-scripts/a.vim'
 " }}}
 
